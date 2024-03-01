@@ -6,6 +6,7 @@ use App\Models\Foto;
 use App\Models\post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\PostDec;
 
@@ -45,7 +46,7 @@ class FotoController extends Controller
         ]);
 
 
-        Foto::create([ 
+        Foto::create([
             'id_user' =>auth()->user()->id,
             'image' => $request->file('image')->store('foto'),
             'describe_photo' => $request->describe_photo
@@ -108,8 +109,25 @@ class FotoController extends Controller
     return redirect('/foto')->with('success', 'Foto Berhasil Di Hapus!');
 }
 
-    public function comment ($id){
+public function like(Request $request)
+{
+    if (Auth::check()) {
+        $id_photo = $request->id_photo;
+        $photo = Foto::where('id_photo', $id_photo)->first();
 
+        if ($photo) {
+            $updatedphoto = Foto::where('id_photo', $id_photo)->update([
+                'like_post' => $photo->like_post + 1
+            ]);;
+
+            return back();
+        } else {
+            return back()->with('error', 'Photo not found');
+        }
+    } else {
+        return back()->with('error', 'User not authenticated');
     }
+}
+
 
 }

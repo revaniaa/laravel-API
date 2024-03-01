@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use function Ramsey\Uuid\v1;
 
@@ -37,6 +38,7 @@ class UserController extends Controller
             'nama_lengkap' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'deskripsi_profile' => ['required', 'string', 'max:255'],
+            // 'image' => 'required|mimes:png,jpg,jpeg',
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -45,6 +47,7 @@ class UserController extends Controller
         $data->nama_lengkap = $request->nama_lengkap;
         $data->email = $request->email;
         $data->deskripsi_profile = $request->deskripsi_profile;
+        // 'image' => $request->file('image')->store('foto'),
         $data->password = $request->password;
         $data->save();
 
@@ -83,4 +86,12 @@ class UserController extends Controller
     {
         //
     }
+
+    // public function trafficuser()
+    // {
+    //     // Mengambil total pengguna yang sedang login
+    //     $totalLoggedInUsers = Auth::user() ? 1 : 0; // Jika ada pengguna yang login, set total ke 1, jika tidak, set ke 0
+
+    //     return view('traffic/traffic', compact('totalLoggedInUsers', $totalLoggedInUsers));
+    // }
 }

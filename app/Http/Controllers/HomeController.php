@@ -31,12 +31,12 @@ class HomeController extends Controller
     }
 
     public function comment(Foto $foto)
-    {
-        $user = User::where("id",$foto->id_user)->first();
-        // $foto = Foto::where('id_photo', $id)->first();
-        return view('comment.comment', [
-            'foto' => $foto,
-            'user'=>$user
-        ]);
-    }
+{
+    $user = User::where("id", $foto->id_user)->first();
+
+    return view('comment.comment', [
+        'foto' => $foto,
+        'user' => $user,
+    ]);
+}
 }

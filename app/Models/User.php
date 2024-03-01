@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Profile;
 
 
 class User extends Authenticatable
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'nama_lengkap',
         'level',
         'deskripsi_profile',
+        'image',
         'password',
     ];
 
@@ -46,4 +48,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // User.php (Model User)
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'id_user');
+    }
+
 }

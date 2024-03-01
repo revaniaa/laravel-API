@@ -33,6 +33,9 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> {{ Auth::user()->username }}</a>
                         <div class="dropdown-menu m-0 bg-primary">
                             <a href="/profile" class="dropdown-item">Profil</a>
+                            @if (auth()->user()->level=="admin")
+                            <a href="/traffic" class="dropdown-item">Traffic</a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -13,8 +13,9 @@ class KomenController extends Controller
         $comment = New Komen;
         $comment->content = $request->comment;
         $comment->id_user = auth()->user()->id;
-        $comment->commentable_id= $foto;
-        $comment->commentable_type='App\Models\Foto';
+        $comment->id_photo= $foto;
+        $comment->username= auth()->user()->username;
+        // $comment->commentable_type='App\Models\Foto';
         $comment->save();
     //    $foto->komens()->save($comment);
 

@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('komens', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
+            $table->unsignedBigInteger('id_user');
             $table->text('content');
-            $table->integer('commentable_id');
-            $table->string('commentable_type');
+            $table->unsignedBigInteger('id_photo');
+            $table->string('username');
+            // $table->string('commentable_type');
             $table->timestamps();
+
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_photo')->references('id_photo')->on('gallery')->onDelete('cascade');
+
         });
     }
 

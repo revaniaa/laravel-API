@@ -67,7 +67,8 @@
                             <form action="/foto/{{$post->id_photo}}" method="POST">
                                 @csrf
                                 @method('delete')
-                            <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash"></i></button>
+                            <button onclick="return confirm('Hapus foto ini?')" class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash"></i></button>
+
                             </form>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EditUserController extends Controller
 {
@@ -80,11 +81,30 @@ class EditUserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        $delete = User::find($id);
-        $delete ->delete();
+    public function destroy($id)
+{
+    $user = User::where('id', $id)->first(); // Retrieve the model instance
 
-        return back ()->with('success', 'Data Berhasil Di Hapus!');
+    if (!$user) {
+        return redirect('/user')->with('error', 'Photo not found');
     }
+
+    // Delete the record from the database
+    $deletedRows = User::where('id', $id)->delete();
+
+    if ($deletedRows > 0 && $user->image) {
+        // Delete the image file
+        Storage::delete($user->image);
+    }
+
+    return redirect('/user')->with('success', 'Data Berhasil Di Hapus!');
+}
+
+    // public function destroy(string $id)
+    // {
+    //     $delete = User::find($id);
+    //     $delete ->delete();
+
+    //     return back ()->with('success', 'Data Berhasil Di Hapus!');
+    // }
 }

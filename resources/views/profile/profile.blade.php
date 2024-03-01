@@ -26,18 +26,18 @@
     <!-- Template Stylesheet -->
     <link href="{{asset('/src/css/style.css')}}" rel="stylesheet">
 </head>
-<div class="card mb-0" style="max-width: 900px; margin-left: 400px; margin-top: 80px; height: 500px" enctype="multipart/form-data">
+<div class="card mb-0" style="max-width: 800px; margin-left: 400px; margin-top: 80px; height: 400px" enctype="multipart/form-data">
     <div class="row g-0">
       <div class="col-md-4" style="text-align: center;">
         <img mat-card-image style="height: 300px; width: 300px; border-radius: 150px; margin-left: 35px; margin-top: 15px;"
-        src="/src/img/user2.jpeg"alt="...">
-        <div class="mb-3" style="margin-left: 50px; margin-top: 20px">
+        src="{{ asset('storage/' . Auth::user()->image) }}"alt="...">
+        {{-- <div class="mb-3" style="margin-left: 50px; margin-top: 20px">
             <label for="image" class="form-label">Post Foto</label>
             <input class="form-control" type="file" id="image" name="image">
         </div>
         <div style="margin-left: 150px; margin-top: 20px">
             <a href="" class="btn btn-info" style="width: 150px">Create Foto</a>
-        </div>
+        </div> --}}
       </div>
       <div class="col-md-8">
         <div class="card-body" style="margin-left: 70px; margin-top: 40px">

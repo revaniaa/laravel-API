@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FotoController;
 use App\Http\Controllers\KomenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\Foto;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +35,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/user/edit/{id}', [App\Http\Controllers\EditUserController::class, 'update'])->name('user.edit');
     Route::delete('/user/destroy/{id}', [App\Http\Controllers\EditUserController::class, 'destroy'])->name('user.destroy');
     Route::get('/edit/{id}',[App\Http\Controllers\EditUserController::class, 'edit'])->name('edit');
+    Route::get('/traffic', function () {
+        return view('traffic.traffic', [
+            'traffic' => Foto::select(DB::raw('DATE_FORMAT(created_at, "%M") AS date'), DB::raw('COUNT(*) AS count'))
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%M")'))
+            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%M")'))
+            ->get()
+        ]);
+    })->name('traffic');
+    // Route::get('/trafficuser', [UserController::class, 'trafficuser']);
+
 });
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -42,7 +55,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/foto/{id}', [App\Http\Controllers\FotoController::class, 'destroy'])->name('foto.destroy');
 
 Route::middleware(['auth', 'pengguna'])->group(function () {
-
+    Route::post('/foto/like', [FotoController::class, 'like']);
     Route::post('komens/{foto}',[KomenController::class,'buatKomentar'])->name('tambahKomen');
     // Route::get('/comment/{foto:id_photo}', [App\Http\Controllers\HomeController::class, 'comment'])->name('comment');
     // Route::post('/comment', [CommentController::class, 'buatKomentar'])->name('tambahkomen');

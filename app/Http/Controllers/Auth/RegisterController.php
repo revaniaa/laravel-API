@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'nama_lengkap' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'deskripsi_profile' => ['required', 'string', 'max:255'],
+            'image' => 'required|mimes:png,jpg,jpeg',
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             // 'level' => ['required', 'string', 'max:255'],
         ]);
@@ -65,14 +66,28 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'username' => $data['username'],
-            'nama_lengkap' => $data['nama_lengkap'],
-            'email' => $data['email'],
-            'deskripsi_profile' => $data ['deskripsi_profile'],
-            'password' => Hash::make($data['password']),
-            // 'level' => $data['pengguna'],
-        ]);
-    }
+{
+    // Simpan gambar ke direktori 'profile'
+    $imagePath = $data['image']->store('profile');
+
+    // Buat entri baru pada tabel users
+    $user = User::create([
+        'username' => $data['username'],
+        'nama_lengkap' => $data['nama_lengkap'],
+        'email' => $data['email'],
+        'deskripsi_profile' => $data['deskripsi_profile'],
+        'image' => $imagePath,
+        'password' => Hash::make($data['password']),
+    ]);
+
+    // Buat entri baru pada tabel profile terkait dengan user baru
+    $user->profile()->create([
+        'describe_profile' => $data['deskripsi_profile'],
+        'link_acc' => 'NULL',// Sesuaikan dengan nama kolom yang sesuai
+        'photo_profile' => $imagePath, // Jika ingin menyimpan path gambar, sesuaikan dengan kolom yang sesuai
+    ]);
+
+    return $user;
+}
+
 }

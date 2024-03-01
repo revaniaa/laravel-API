@@ -54,6 +54,9 @@
                 </form>
             </div>
 
+        </div>
     </div>
-</div>
+    <div style="margin-left: 445px; margin-top: 20px">
+        <a href="/foto" class="btn btn-info">Back</a>
+    </div>
 

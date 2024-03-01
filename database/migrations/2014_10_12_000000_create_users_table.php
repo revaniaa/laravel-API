@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->enum('level', ['pengguna','admin']);
             $table->string('deskripsi_profile');
+            $table->string('image');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

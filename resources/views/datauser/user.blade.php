@@ -69,11 +69,11 @@
                     <td>{{$dt->email}}</td>
                     <td>{{$dt->level}}</td>
                     <td>
-                        <form action="{{route('user.destroy', $dt->id)}}" method="POST">
+                        <form action="{{ route('user.destroy', $dt->id) }}" method="POST">
                             @csrf
                             @method('delete')
-                            <a href="/edit/{{$dt->id}}" class="btn btn-success btn-sm">Edit</a>
-                            <button class="btn btn-danger btn-sm"  style="margin-left: 10px">Hapus</button>
+                            <a href="/edit/{{ $dt->id }}" class="btn btn-success btn-sm">Edit</a>
+                            <button onclick="return confirm('Hapus user ini?')" class="btn btn-danger btn-sm" style="margin-left: 10px">Hapus</button>
                         </form>
                     </td>
                   </tr>

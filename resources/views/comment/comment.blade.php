@@ -1,3 +1,5 @@
+@extends('layouts.master')
+
 <head>
     <meta charset="utf-8">
     <title>Gallery Foto</title>

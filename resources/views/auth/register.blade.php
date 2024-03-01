@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" class="mb-5">
+                    <form method="POST" action="{{ route('register') }}" class="mb-5" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
@@ -67,6 +67,19 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image') }}</label>
+
+                            <div class="col-md-6">
+                                <input type="file" id="image" class="form-control" name="image">
+
+                                @error('image')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -93,6 +106,12 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                <br />
+                                <span>Sudah punya akun?
+                                    <a class="btn btn-link" href="{{ route('login') }}">
+                                        {{ __('Login') }}
+                                    </a>
+                                   </span>
                             </div>
                         </div>
                     </form>

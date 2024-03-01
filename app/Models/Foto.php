@@ -23,7 +23,7 @@ class Foto extends Model
 
     public function comments()
     {
-        return $this->morphMany(Komen::class, 'commentable');
+        return $this->morphMany('App\Models\Komen', 'commentable');
     }
 
     // public function komens()
